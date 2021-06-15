@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/valladao/consume-github-api/issues"
   },
-  "homepage": "https://github.com/valladao/consume-github-api#readme"
+  "homepage": "https://github.com/valladao/consume-github-api#readme",
+  "browserslist": [
+    "since 2017-06"
+  ]
 }
