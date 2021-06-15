@@ -2,8 +2,71 @@
 <html>
   <head>
     <script src="./dist/app.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tailwindcss/ui@latest/dist/tailwind-ui.min.css"
+    />
   </head>
   <body>
-    <p>Hello, World!</p>
+    <h1
+      class="
+        pt-10
+        text-center
+        mt-6
+        text-3xl
+        leading-9
+        font-extrabold
+        text-gray-900
+      "
+    >
+      Search a GitHub User
+    </h1>
+    <form class="w-full max-w-sm mx-auto">
+      <div class="mt-10 flex">
+        <input
+          name="username"
+          class="
+            form-input
+            block
+            w-full
+            py-2
+            px-3
+            border border-gray-300
+            rounded-md
+            shadow-sm
+            focus:outline-none
+            focus:shadow-outline-blue
+            focus:border-blue-300
+            transition
+            duration-150
+          "
+        />
+        <button
+          type="submit"
+          class="
+            ml-2
+            py-2
+            px-3
+            border border-gray-300
+            rounded-md
+            text-sm
+            leading-4
+            font-medium
+            text-gray-700
+            hover:text-gray-500
+            focus:outline-none
+            focus:border-blue-300
+            focus:shadow-outline-blue
+            active:bg-gray-50
+            active:text-gray-800
+            transition
+            duration-150
+            ease-in-out
+          "
+        >
+          Search
+        </button>
+      </div>
+    </form>
   </body>
 </html>

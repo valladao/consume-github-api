@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Bootcamp Project: Create an app using the GitHub Public API",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
