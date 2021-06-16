@@ -1926,15 +1926,42 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const createCard = data => "\n  <div class=\"px-4 py-5 sm:px-6 -ml-4 -mt-4 border-b border-gray-200 pb-8 flex justify-between items-center flex-wrap sm:flex-no-wrap\">\n    <div class=\"ml-4 mt-4\">\n      <div class=\"flex items-center\">\n        <div class=\"flex-shrink-0\">\n          <img class=\"h-12 w-12 rounded-full\" src=\"".concat(data.avatar_url, "\" alt=\"\">\n        </div>\n        <div class=\"ml-4\">\n          <h3 class=\"text-lg leading-6 font-medium text-gray-900\">\n            ").concat(data.name, "\n            <span class=\"text-sm leading-5 text-gray-500\">\n                @").concat(data.login, "\n            </span>\n          </h3>\n          <p class=\"text-sm leading-5 text-gray-500\">\n            ").concat(data.public_repos, " repositories. User since ").concat(data.created_at.slice(0, 4), "\n          </p>\n          <p class=\"text-sm leading-5 text-gray-500\">\n            ").concat(data.location || "", "\n          </p>\n          <p class=\"mt-1 text-sm leading-5 text-gray-500\">\n            ").concat(data.bio, "\n          </p>\n        </div>\n      </div>\n    </div>\n    <div class=\"ml-4 mt-4 flex-shrink-0 flex\">\n      <span class=\"ml-3 inline-flex rounded-md shadow-sm\">\n        <a href=\"").concat(data.html_url, "\"><button type=\"button\" class=\"mr-2 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800\">\n          <span>\n            Profile\n          </span>\n        </button>\n        </a>\n        <a href=\"").concat(data.blog, "\"><button type=\"button\" class=\"relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800\">\n          <span>\n            Website\n          </span>\n        </button>\n        </a>\n      </span>\n    </div>\n  </div>\n");
 
+const usernames = [];
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   form.addEventListener("submit", async event => {
     event.preventDefault();
     const username = document.querySelector("input").value;
-    const response = await _axios.default.get("https://api.github.com/users/".concat(username));
-    console.log(response.data);
-    const card = createCard(response.data);
-    document.querySelector("#container").insertAdjacentHTML("beforeend", card);
+
+    if (!username) {
+      alert("Enter a username");
+      return;
+    }
+
+    if (usernames.includes(username)) {
+      alert("You already searched for this");
+      return;
+    }
+
+    let response = "";
+
+    try {
+      response = await _axios.default.get("https://api.github.com/users/".concat(username));
+    } catch (error) {
+      if (404 === error.response.status) {
+        alert("Username not found");
+      } else {
+        alert("Error");
+        console.log(error.response);
+      }
+    }
+
+    if (response) {
+      const card = createCard(response.data);
+      document.querySelector("#container").insertAdjacentHTML("afterbegin", card);
+      usernames.push(username);
+      document.querySelector("input").value = "";
+    }
   });
 });
 },{"axios":"node_modules/axios/index.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {

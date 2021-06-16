@@ -51,14 +51,39 @@ const createCard = (data) => `
   </div>
 `
 
+const usernames = []
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form")
   form.addEventListener("submit", async (event) => {
     event.preventDefault()
     const username = document.querySelector("input").value
-    const response = await axios.get(`https://api.github.com/users/${username}`)
-    console.log(response.data)
-    const card = createCard(response.data)
-    document.querySelector("#container").insertAdjacentHTML("beforeend", card)
+    if (!username) {
+      alert("Enter a username")
+      return
+    }
+    if (usernames.includes(username)) {
+      alert("You already searched for this")
+      return
+    }
+    let response = ""
+    try {
+      response = await axios.get(`https://api.github.com/users/${username}`)
+    } catch (error) {
+      if (404 === error.response.status) {
+        alert("Username not found")
+      } else {
+        alert("Error")
+        console.log(error.response)
+      }
+    }
+    if (response) {
+      const card = createCard(response.data)
+      document
+        .querySelector("#container")
+        .insertAdjacentHTML("afterbegin", card)
+      usernames.push(username)
+      document.querySelector("input").value = ""
+    }
   })
 })
